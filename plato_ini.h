@@ -16,6 +16,7 @@ typedef int (*ini_handler)(void* user, const char* section, const char* name, co
 typedef char* (*ini_reader)(char* str, int num, void* stream);
 
 int pl_ini_parse(char* filepath, void *parser, void *dest);
+void pl_ini_normalize_path_separators(char *filepath);
 
 #ifdef PLATO_INI_IMPLEMENTATION
 
