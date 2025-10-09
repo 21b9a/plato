@@ -26,7 +26,7 @@ int pl_bvh_ray_intersection(
     size_t dest_sz
 );
 
-#ifdef PLATO_BVH_IMPLEMENTATION
+#if defined(PLATO_IMPLEMENTATION) || defined(PLATO_BVH_IMPLEMENTATION)
 
 typedef struct pl_bvh_aabb_s {
     float min[3];

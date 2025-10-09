@@ -11,7 +11,7 @@ void pl_log(const char *str, ...);
 void pl_logtime(const char *str, ...);
 void pl_logbits(void *data, size_t data_sz);
 
-#ifdef PLATO_LOG_IMPLEMENTATION
+#if defined(PLATO_IMPLEMENTATION) || defined(PLATO_LOG_IMPLEMENTATION)
 
 void pl_log(const char *str, ...) {
     va_list args;

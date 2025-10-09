@@ -11,7 +11,7 @@ void pl_qsort_r(
     void *arg
 );
 
-#ifdef PLATO_SORT_IMPLEMENTATION
+#if defined(PLATO_IMPLEMENTATION) || defined(PLATO_SORT_IMPLEMENTATION)
 
 static void _pl_sort_swap_internal(void *a, void *b, size_t size) {
     unsigned char *pa = (unsigned char*)a;

@@ -157,7 +157,7 @@ int pl_tss_set(pl_tss_t key, void *val);
     #define pl_call_once(flag,func) pthread_once(flag,func)
 #endif
 
-#ifdef PLATO_THREAD_IMPLEMENTATION
+#if defined(PLATO_IMPLEMENTATION) || defined(PLATO_THREAD_IMPLEMENTATION)
 
 #if defined(_WIN32)
     typedef struct pl_mtx_s {

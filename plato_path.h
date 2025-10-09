@@ -17,7 +17,7 @@ int pl_path_executable(char *dest, size_t capacity);
 bool pl_file_exists(const char *filename);
 long pl_file_modtime(const char *filename);
 
-#ifdef PLATO_PATH_IMPLEMENTATION
+#if defined(PLATO_IMPLEMENTATION) || defined(PLATO_PATH_IMPLEMENTATION)
 
 #if defined(_WIN32)
 

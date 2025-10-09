@@ -12,7 +12,7 @@ typedef struct pl_timer_s pl_timer_t;
 void pl_timer_init(pl_timer_t *timer);
 double pl_timer_dt(pl_timer_t *timer);
 
-#ifdef PLATO_TIMER_IMPLEMENTATION
+#if defined(PLATO_IMPLEMENTATION) || defined(PLATO_TIMER_IMPLEMENTATION)
 
 typedef struct pl_timer_s {
 #if defined(_WIN32)

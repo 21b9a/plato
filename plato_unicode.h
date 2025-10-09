@@ -12,7 +12,7 @@ int pl_u8_mbtoucr(uint32_t *puc, const uint8_t *s, size_t n);
 uint32_t *pl_u8_u32(const uint8_t *s, size_t n, uint32_t *resultbuf, size_t *lengthp);
 uint32_t *pl_utf8_codepoints(const char *utf8_str, size_t *num_codepoints);
 
-#ifdef PLATO_UNICODE_IMPLEMENTATION
+#if defined(PLATO_IMPLEMENTATION) || defined(PLATO_UNICODE_IMPLEMENTATION)
 
 uint32_t pl_utf8_parse(const char **_str, const size_t slen) {
     /*

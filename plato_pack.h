@@ -12,7 +12,7 @@ int pl_pack_rects(
     int padding
 );
 
-#ifdef PLATO_PACK_IMPLEMENTATION
+#if defined(PLATO_IMPLEMENTATION) || defined(PLATO_PACK_IMPLEMENTATION)
 
 typedef struct pl_pack_rect_s {
     int x, y;

@@ -14,7 +14,7 @@ void *pl_arena_aligned_alloc(pl_arena_t *arena, size_t size, size_t alignment);
 void pl_arena_free(pl_arena_t *arena);
 void pl_arena_reset(pl_arena_t *arena);
 
-#ifdef PLATO_ARENA_IMPLEMENTATION
+#if defined(PLATO_IMPLEMENTATION) || defined(PLATO_ARENA_IMPLEMENTATION)
 
 typedef struct pl_arena_s {
     void *data;

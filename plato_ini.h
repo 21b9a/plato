@@ -18,7 +18,7 @@ typedef char* (*ini_reader)(char* str, int num, void* stream);
 int pl_ini_parse(char* filepath, void *parser, void *dest);
 void pl_ini_normalize_path_separators(char *filepath);
 
-#ifdef PLATO_INI_IMPLEMENTATION
+#if defined(PLATO_IMPLEMENTATION) || defined(PLATO_INI_IMPLEMENTATION)
 
 // The 'end' paramenter must be a pointer to the null terminator at the end of 'str'
 static char* pl_ini_stripws(char* str, char* end) {
