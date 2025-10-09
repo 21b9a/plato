@@ -7,13 +7,6 @@
 #include <time.h>
 #endif
 
-typedef struct pl_timer_s pl_timer_t;
-
-void pl_timer_init(pl_timer_t *timer);
-double pl_timer_dt(pl_timer_t *timer);
-
-#if defined(PLATO_IMPLEMENTATION) || defined(PLATO_TIMER_IMPLEMENTATION)
-
 typedef struct pl_timer_s {
 #if defined(_WIN32)
     LARGE_INTEGER frequency;
@@ -22,6 +15,11 @@ typedef struct pl_timer_s {
     struct timespec start_time;
 #endif
 } pl_timer_t;
+
+void pl_timer_init(pl_timer_t *timer);
+double pl_timer_dt(pl_timer_t *timer);
+
+#if defined(PLATO_IMPLEMENTATION) || defined(PLATO_TIMER_IMPLEMENTATION)
 
 void pl_timer_init(pl_timer_t *timer) {
 #if defined(_WIN32)

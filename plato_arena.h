@@ -6,7 +6,11 @@
 
 #define PL_ARENA_MEM_ALIGN(p, a) ((p + (a - 1)) & ~(a - 1))
 
-typedef struct pl_arena_s pl_arena_t;
+typedef struct pl_arena_s {
+    void *data;
+    size_t capacity;
+    size_t offset;
+} pl_arena_t;
 
 int pl_arena_init(pl_arena_t *arena, size_t capacity);
 void *pl_arena_alloc(pl_arena_t *arena, size_t size);
@@ -16,21 +20,16 @@ void pl_arena_reset(pl_arena_t *arena);
 
 #if defined(PLATO_IMPLEMENTATION) || defined(PLATO_ARENA_IMPLEMENTATION)
 
-typedef struct pl_arena_s {
-    void *data;
-    size_t capacity;
-    size_t offset;
-} pl_arena_t;
-
-int pl_arena_init(pl_arena_t *arena, size_t capacity) {
-    if(!arena) return 1;
+pl_arena_t *pl_arena_init(size_t capacity) {
+    pl_arena_t *arena = malloc(sizeof(pl_arena_t));
+    if(!arena) return NULL;
 
     arena->data = malloc(capacity);
-    if(!arena->data) return 1;
+    if(!arena->data) return NULL;
 
     arena->capacity = capacity;
     arena->offset = 0;
-    return 0;
+    return arena;
 }
 
 void *pl_arena_alloc(pl_arena_t *arena, size_t size) {
@@ -63,9 +62,7 @@ void *pl_arena_aligned_alloc(pl_arena_t *arena, size_t size, size_t alignment) {
 void pl_arena_free(pl_arena_t *arena) {
     if(arena && arena->data) {
         free(arena->data);
-        arena->data = NULL;
-        arena->capacity = 0;
-        arena->offset = 0;
+        free(arena);
     }
 }
 
