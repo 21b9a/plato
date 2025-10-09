@@ -12,7 +12,7 @@ typedef struct pl_arena_s {
     size_t offset;
 } pl_arena_t;
 
-int pl_arena_init(pl_arena_t *arena, size_t capacity);
+pl_arena_t *pl_arena_init(size_t capacity);
 void *pl_arena_alloc(pl_arena_t *arena, size_t size);
 void *pl_arena_aligned_alloc(pl_arena_t *arena, size_t size, size_t alignment);
 void pl_arena_free(pl_arena_t *arena);
