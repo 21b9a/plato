@@ -16,7 +16,7 @@
 int pl_path_executable(char *dest, size_t capacity);
 bool pl_file_exists(const char *filename);
 long pl_file_modtime(const char *filename);
-void pl_path_updir(const char *filepath, char *dest);
+void pl_path_updir(const char *filepath, char *dest, int iter);
 
 #if defined(PLATO_IMPLEMENTATION) || defined(PLATO_PATH_IMPLEMENTATION)
 
@@ -167,19 +167,21 @@ long pl_file_modtime(const char *filename) {
     return (long)file_info.st_mtime;
 }
 
-void pl_path_updir(const char *filepath, char *dest) {
+void pl_path_updir(const char *filepath, char *dest, int iter) {
     strcpy(dest, filepath);
     _pl_path_normalize_path_separators_internl(dest);
-    #if defined(_WIN32)
-        char *last_sep = strrchr(dest, '\\');
-    #else
-        char *last_sep = strrchr(dest, '/');
-    #endif
-    if(!last_sep) {
-        dest = NULL; 
-        return;
+    for(int i = 0; i < iter; i++) {
+        #if defined(_WIN32)
+            char *last_sep = strrchr(dest, '\\');
+        #else
+            char *last_sep = strrchr(dest, '/');
+        #endif
+        if(!last_sep) {
+            dest = NULL; 
+            return;
+        }
+        *last_sep = '\0';
     }
-    *last_sep = '\0';
 }
 
 #endif // PLATO_PATH_IMPLEMENTATION
