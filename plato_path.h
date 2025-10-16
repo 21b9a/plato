@@ -17,6 +17,7 @@ int pl_path_executable(char *dest, size_t capacity);
 bool pl_file_exists(const char *filename);
 long pl_file_modtime(const char *filename);
 void pl_path_updir(const char *filepath, char *dest, int iter);
+void pl_path_normalize_separators(char *filepath);
 
 #if defined(PLATO_IMPLEMENTATION) || defined(PLATO_PATH_IMPLEMENTATION)
 
@@ -149,14 +150,6 @@ int pl_path_executable(char* dest, size_t capacity) {
     #error "Unsupported platform - Windows, Linux, and macOS are supported."
 #endif
 
-void _pl_path_normalize_path_separators_internl(char *filepath) {
-    #ifdef _WIN32
-        for(int i = 0; filepath[i] != '\0'; i++) {
-            if(filepath[i] == '/') filepath[i] = '\\';
-        }
-    #endif
-}
-
 bool pl_file_exists(const char *filename) {
     return (access(filename, F_OK) == 0);
 }
@@ -169,7 +162,7 @@ long pl_file_modtime(const char *filename) {
 
 void pl_path_updir(const char *filepath, char *dest, int iter) {
     strcpy(dest, filepath);
-    _pl_path_normalize_path_separators_internl(dest);
+    pl_path_normalize_separators(dest);
     for(int i = 0; i < iter; i++) {
         #if defined(_WIN32)
             char *last_sep = strrchr(dest, '\\');
@@ -182,6 +175,14 @@ void pl_path_updir(const char *filepath, char *dest, int iter) {
         }
         *last_sep = '\0';
     }
+}
+
+void pl_path_normalize_separators(char *filepath) {
+    #ifdef _WIN32
+        for(int i = 0; filepath[i] != '\0'; i++) {
+            if(filepath[i] == '/') filepath[i] = '\\';
+        }
+    #endif
 }
 
 #endif // PLATO_PATH_IMPLEMENTATION
